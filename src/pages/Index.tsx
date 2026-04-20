@@ -117,7 +117,7 @@ const Index = () => {
               className="w-10 h-10 rounded-full object-cover"
             />
             <span className="font-oswald text-2xl font-bold tracking-wider">
-              МАС<span style={{ color: "var(--neon)" }}>ТЕР</span>СКАЯ
+              МАС<span style={{ color: "var(--neon)" }}>ТО</span>РАС
             </span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
@@ -563,7 +563,7 @@ const Index = () => {
               className="w-8 h-8 rounded-full object-cover"
             />
             <span className="font-oswald text-xl font-bold">
-              МАС<span style={{ color: "var(--neon)" }}>ТЕР</span>СКАЯ
+              МАС<span style={{ color: "var(--neon)" }}>ТО</span>РАС
             </span>
           </div>
           <div className="text-white/20 text-xs text-center">
