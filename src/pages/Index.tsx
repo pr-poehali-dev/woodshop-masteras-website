@@ -110,8 +110,15 @@ const Index = () => {
       {/* NAV */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A0A0A]/95 backdrop-blur border-b border-[#222]" : ""}`}>
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <div className="font-oswald text-2xl font-bold tracking-wider">
-            МАС<span style={{ color: "var(--neon)" }}>ТЕР</span>СКАЯ
+          <div className="flex items-center gap-3">
+            <img
+              src="https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/bucket/acef5a9c-f72a-4801-8678-dbf2fb2f1d39.jpg"
+              alt="Мастерская"
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <span className="font-oswald text-2xl font-bold tracking-wider">
+              МАС<span style={{ color: "var(--neon)" }}>ТЕР</span>СКАЯ
+            </span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
             {Object.keys(NAV_ITEMS).map((s) => (
@@ -549,8 +556,15 @@ const Index = () => {
       {/* FOOTER */}
       <footer className="border-t border-[#1A1A1A] py-10 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="font-oswald text-xl font-bold">
-            МАС<span style={{ color: "var(--neon)" }}>ТЕР</span>СКАЯ
+          <div className="flex items-center gap-3">
+            <img
+              src="https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/bucket/acef5a9c-f72a-4801-8678-dbf2fb2f1d39.jpg"
+              alt="Мастерская"
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <span className="font-oswald text-xl font-bold">
+              МАС<span style={{ color: "var(--neon)" }}>ТЕР</span>СКАЯ
+            </span>
           </div>
           <div className="text-white/20 text-xs text-center">
             © 2024 Мастерская интерьеров. Все права защищены.
