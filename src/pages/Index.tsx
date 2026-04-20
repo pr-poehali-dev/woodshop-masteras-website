@@ -249,8 +249,11 @@ const Index = () => {
         </div>
       </section>
 
+      {/* WOOD DIVIDER */}
+      <div className="h-2 w-full wood-strip opacity-80" />
+
       {/* MARQUEE */}
-      <div className="py-3 overflow-hidden" style={{ backgroundColor: C.gold }}>
+      <div className="py-3 overflow-hidden metal-brass metal-shine">
         <div className="flex whitespace-nowrap" style={{ animation: "marquee 25s linear infinite" }}>
           {Array(10).fill("ДИЗАЙН · РЕМОНТ · ИНТЕРЬЕР · ПРОЕКТИРОВАНИЕ · АВТОРСКИЙ НАДЗОР · КУХНИ · ВАННЫЕ · ОФИСЫ · ").map((t, i) => (
             <span key={i} className="font-oswald font-black text-sm tracking-widest" style={{ color: C.cream }}>{t}</span>
@@ -321,6 +324,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* METAL DIVIDER */}
+      <div className="h-1 w-full metal-steel opacity-60" />
+
       {/* SERVICES */}
       <section id="services" className="py-24" style={{ backgroundColor: C.creamDark }}>
         <div className="max-w-7xl mx-auto px-6">
@@ -341,10 +347,12 @@ const Index = () => {
                   onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.cream)}
                   onMouseLeave={e => (e.currentTarget.style.backgroundColor = C.creamDark)}
                 >
+                  {/* Top wood accent bar */}
+                  <div className="w-full h-1 mb-5 wood-strip opacity-50 rounded-sm" />
                   <div
-                    className="w-12 h-12 flex items-center justify-center mb-6 transition-all"
-                    style={{ border: `1px solid ${C.border}` }}
-                    onMouseEnter={e => (e.currentTarget.style.borderColor = C.gold)}
+                    className="w-12 h-12 flex items-center justify-center mb-6 transition-all metal-steel metal-riveted"
+                    onMouseEnter={e => (e.currentTarget.style.outline = `2px solid ${C.gold}`)}
+                    onMouseLeave={e => (e.currentTarget.style.outline = "none")}
                   >
                     <Icon name={s.icon as "Pencil"} size={20} style={{ color: C.inkMuted }} />
                   </div>
@@ -402,6 +410,9 @@ const Index = () => {
         </div>
       </section>
 
+      {/* WOOD DIVIDER 2 */}
+      <div className="h-3 w-full wood-oak opacity-70" />
+
       {/* ABOUT */}
       <section id="about" className="py-24 overflow-hidden" style={{ backgroundColor: C.creamDark }}>
         <div className="max-w-7xl mx-auto px-6">
@@ -442,7 +453,7 @@ const Index = () => {
             <AnimSection delay={200} className="relative">
               <div className="relative">
                 <img src={IMG_BATH} alt="о нас" className="w-full h-80 md:h-[500px] object-cover" />
-                <div className="absolute -bottom-6 -left-6 p-6 hidden md:block" style={{ backgroundColor: C.gold }}>
+                <div className="absolute -bottom-6 -left-6 p-6 hidden md:block metal-brass metal-shine">
                   <div className="font-oswald font-black text-4xl" style={{ color: C.cream }}>320+</div>
                   <div className="font-oswald text-xs uppercase tracking-wider" style={{ color: "rgba(245,239,227,0.7)" }}>проектов сдано</div>
                 </div>
@@ -491,12 +502,15 @@ const Index = () => {
         </div>
       </section>
 
+      {/* METAL DIVIDER 2 */}
+      <div className="h-1.5 w-full metal-iron opacity-80" />
+
       {/* CTA BANNER */}
-      <div className="py-16 px-6" style={{ backgroundColor: C.ink }}>
+      <div className="py-16 px-6 wood-walnut relative overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h3 className="font-oswald font-black text-4xl md:text-5xl mb-2" style={{ color: C.gold }}>ГОТОВЫ НАЧАТЬ?</h3>
-            <p style={{ color: "rgba(245,239,227,0.5)" }}>Бесплатный замер и консультация — уже сегодня</p>
+            <h3 className="font-oswald font-black text-4xl md:text-5xl mb-2" style={{ color: "#f0c96a" }}>ГОТОВЫ НАЧАТЬ?</h3>
+            <p style={{ color: "rgba(245,239,227,0.55)" }}>Бесплатный замер и консультация — уже сегодня</p>
           </div>
           <button
             onClick={() => scrollTo("contacts")}
@@ -609,7 +623,7 @@ const Index = () => {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-10 px-6" style={{ borderTop: `1px solid ${C.border}`, backgroundColor: C.cream }}>
+      <footer className="py-10 px-6" style={{ borderTop: "3px solid transparent", backgroundImage: `linear-gradient(${C.cream}, ${C.cream}), linear-gradient(90deg, #7a5a18, #d4a853, #906820, #e0b038, #7a5a18)`, backgroundOrigin: "border-box", backgroundClip: "padding-box, border-box", backgroundColor: C.cream }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <img src={LOGO} alt="Масторас" className="w-8 h-8 rounded-full object-cover" style={{ boxShadow: `0 0 0 1.5px ${C.gold}` }} />

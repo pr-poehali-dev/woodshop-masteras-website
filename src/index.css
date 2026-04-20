@@ -58,6 +58,14 @@
     --dark-card: #ede4d3;
     --dark-surface: #e8dcc8;
     --dark-border: #d4c4a8;
+
+    /* Wood & Metal */
+    --wood-light: #c8a878;
+    --wood-mid: #9a6e3a;
+    --wood-dark: #3d2510;
+    --metal-brass: #b8913a;
+    --metal-steel: #7a7870;
+    --metal-dark: #4a4540;
   }
 }
 
@@ -81,19 +89,15 @@
   .text-gold {
     color: var(--gold);
   }
-
   .bg-gold {
     background-color: var(--gold);
   }
-
   .border-gold {
     border-color: var(--gold);
   }
-
   .text-ink {
     color: var(--ink);
   }
-
   .bg-cream {
     background-color: var(--cream);
   }
@@ -103,27 +107,235 @@
     color: transparent;
   }
 
-  .noise-bg {
-    position: relative;
+  /* ===================== */
+  /* === WOOD TEXTURES === */
+  /* ===================== */
+
+  /* Light oak grain */
+  .wood-oak {
+    background-color: #c8a878;
+    background-image:
+      repeating-linear-gradient(
+        88.5deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(100, 55, 10, 0.07) 2px,
+        rgba(100, 55, 10, 0.07) 3px
+      ),
+      repeating-linear-gradient(
+        91deg,
+        transparent 0px,
+        transparent 5px,
+        rgba(160, 100, 30, 0.05) 5px,
+        rgba(160, 100, 30, 0.05) 6px
+      ),
+      linear-gradient(
+        90deg,
+        #b8905a 0%,
+        #d4aa70 18%,
+        #c09050 35%,
+        #dab878 50%,
+        #b88848 65%,
+        #ccaa68 80%,
+        #b89050 100%
+      );
   }
 
-  .noise-bg::before {
+  /* Dark walnut grain */
+  .wood-walnut {
+    background-color: #3d2510;
+    background-image:
+      repeating-linear-gradient(
+        89deg,
+        transparent 0px,
+        transparent 3px,
+        rgba(255, 180, 80, 0.04) 3px,
+        rgba(255, 180, 80, 0.04) 4px
+      ),
+      repeating-linear-gradient(
+        91.5deg,
+        transparent 0px,
+        transparent 7px,
+        rgba(200, 120, 40, 0.04) 7px,
+        rgba(200, 120, 40, 0.04) 8px
+      ),
+      linear-gradient(
+        90deg,
+        #2a1508 0%,
+        #4a2c14 20%,
+        #381a08 40%,
+        #503018 55%,
+        #2e1608 70%,
+        #453020 85%,
+        #3a1e0a 100%
+      );
+  }
+
+  /* Thin horizontal wood strip (for dividers, borders) */
+  .wood-strip {
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(100, 55, 10, 0.5) 0px,
+      rgba(180, 120, 50, 0.8) 6px,
+      rgba(130, 80, 25, 0.6) 12px,
+      rgba(200, 150, 70, 0.7) 20px,
+      rgba(110, 60, 15, 0.55) 28px,
+      rgba(170, 110, 40, 0.75) 36px
+    );
+  }
+
+  /* Wood ring pattern (like log cross-section) */
+  .wood-rings {
+    background-image:
+      repeating-radial-gradient(
+        circle at 50% 50%,
+        transparent 0px,
+        transparent 8px,
+        rgba(120, 70, 20, 0.06) 8px,
+        rgba(120, 70, 20, 0.06) 9px
+      ),
+      linear-gradient(135deg, #c8a060, #a07840);
+  }
+
+  /* ========================= */
+  /* === METAL TEXTURES ====== */
+  /* ========================= */
+
+  /* Brushed brass */
+  .metal-brass {
+    background-color: #b8913a;
+    background-image:
+      repeating-linear-gradient(
+        92deg,
+        transparent 0px,
+        transparent 1px,
+        rgba(255, 240, 160, 0.06) 1px,
+        rgba(255, 240, 160, 0.06) 2px
+      ),
+      linear-gradient(
+        115deg,
+        #7a5a18 0%,
+        #c8980c 15%,
+        #f0c840 28%,
+        #b08030 40%,
+        #e0b038 52%,
+        #906820 62%,
+        #d0a028 73%,
+        #b88820 83%,
+        #d8b040 92%,
+        #986810 100%
+      );
+  }
+
+  /* Brushed steel / aluminum */
+  .metal-steel {
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 1px,
+        rgba(255, 255, 255, 0.025) 1px,
+        rgba(255, 255, 255, 0.025) 2px
+      ),
+      repeating-linear-gradient(
+        88deg,
+        transparent 0px,
+        transparent 3px,
+        rgba(0, 0, 0, 0.03) 3px,
+        rgba(0, 0, 0, 0.03) 4px
+      ),
+      linear-gradient(
+        180deg,
+        #585450 0%,
+        #7c7870 18%,
+        #9a9690 32%,
+        #6a6660 48%,
+        #8a8680 60%,
+        #b0aca8 72%,
+        #6e6a64 85%,
+        #8a8680 100%
+      );
+  }
+
+  /* Dark oxidized iron */
+  .metal-iron {
+    background-image:
+      repeating-linear-gradient(
+        135deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(255, 255, 255, 0.015) 2px,
+        rgba(255, 255, 255, 0.015) 3px
+      ),
+      linear-gradient(
+        160deg,
+        #252220 0%,
+        #3a3530 20%,
+        #282420 40%,
+        #404038 55%,
+        #302c28 70%,
+        #484440 85%,
+        #302a28 100%
+      );
+  }
+
+  /* Polished copper */
+  .metal-copper {
+    background-image:
+      repeating-linear-gradient(
+        105deg,
+        transparent 0px,
+        transparent 1px,
+        rgba(255, 200, 100, 0.05) 1px,
+        rgba(255, 200, 100, 0.05) 2px
+      ),
+      linear-gradient(
+        130deg,
+        #7a3c20 0%,
+        #c06030 18%,
+        #e08040 30%,
+        #a04820 45%,
+        #d07038 58%,
+        #884028 70%,
+        #c06830 82%,
+        #a05030 100%
+      );
+  }
+
+  /* Rivet / bolt style border */
+  .metal-riveted {
+    border: 2px solid var(--metal-steel);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+      0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Metal shine sweep animation */
+  .metal-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .metal-shine::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    top: 0;
+    left: -120%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.12),
+      transparent
+    );
+    animation: metal-sweep 5s ease-in-out infinite;
     pointer-events: none;
-    z-index: 0;
   }
 
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+  /* ========================= */
+  /* === COMBINED & MISC ===== */
+  /* ========================= */
 
   .paper-texture {
     background-color: var(--cream);
@@ -138,5 +350,37 @@
         rgba(184, 145, 58, 0.04) 0%,
         transparent 50%
       );
+  }
+
+  .noise-bg {
+    position: relative;
+  }
+  .noise-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  @keyframes metal-sweep {
+    0% {
+      left: -120%;
+    }
+    45% {
+      left: 150%;
+    }
+    100% {
+      left: 150%;
+    }
   }
 }
