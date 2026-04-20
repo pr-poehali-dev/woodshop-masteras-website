@@ -4,53 +4,60 @@
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 96%;
+    --background: 36 25% 95%;
+    --foreground: 25 30% 12%;
 
-    --card: 0 0% 7%;
-    --card-foreground: 0 0% 96%;
+    --card: 36 20% 92%;
+    --card-foreground: 25 30% 12%;
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 36 20% 92%;
+    --popover-foreground: 25 30% 12%;
 
-    --primary: 66 100% 50%;
-    --primary-foreground: 0 0% 4%;
+    --primary: 38 65% 45%;
+    --primary-foreground: 36 25% 97%;
 
-    --secondary: 0 0% 13%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 36 15% 85%;
+    --secondary-foreground: 25 30% 20%;
 
-    --muted: 0 0% 13%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 36 15% 88%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 66 100% 50%;
-    --accent-foreground: 0 0% 4%;
+    --accent: 38 65% 45%;
+    --accent-foreground: 36 25% 97%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 96%;
+    --destructive-foreground: 36 25% 97%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 13%;
-    --ring: 66 100% 50%;
+    --border: 36 20% 80%;
+    --input: 36 15% 88%;
+    --ring: 38 65% 45%;
 
-    --radius: 0.25rem;
+    --radius: 0.125rem;
 
-    --sidebar-background: 0 0% 7%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 66 100% 50%;
-    --sidebar-primary-foreground: 0 0% 4%;
-    --sidebar-accent: 0 0% 13%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 66 100% 50%;
+    --sidebar-background: 36 20% 92%;
+    --sidebar-foreground: 25 30% 20%;
+    --sidebar-primary: 38 65% 45%;
+    --sidebar-primary-foreground: 36 25% 97%;
+    --sidebar-accent: 36 15% 85%;
+    --sidebar-accent-foreground: 25 30% 20%;
+    --sidebar-border: 36 20% 80%;
+    --sidebar-ring: 38 65% 45%;
 
     /* Brand Colors */
-    --neon: #e8ff00;
-    --neon-orange: #ff5500;
-    --neon-cyan: #00f5ff;
-    --dark-base: #0a0a0a;
-    --dark-card: #111111;
-    --dark-surface: #161616;
-    --dark-border: #222222;
+    --gold: #b8913a;
+    --gold-light: #d4a853;
+    --gold-pale: #f0e0b0;
+    --cream: #f5efe3;
+    --cream-dark: #ede4d3;
+    --ink: #1e150a;
+    --ink-soft: #3d2b15;
+    --ink-muted: #7a6248;
+    --neon: #b8913a;
+    --neon-orange: #c0622a;
+    --dark-base: #f5efe3;
+    --dark-card: #ede4d3;
+    --dark-surface: #e8dcc8;
+    --dark-border: #d4c4a8;
   }
 }
 
@@ -60,8 +67,9 @@
   }
 
   body {
-    @apply bg-dark text-white font-golos;
-    background-color: var(--dark-base);
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: "Golos Text", sans-serif;
   }
 
   html {
@@ -70,44 +78,28 @@
 }
 
 @layer utilities {
-  .text-neon {
-    color: var(--neon);
+  .text-gold {
+    color: var(--gold);
   }
 
-  .text-neon-orange {
-    color: var(--neon-orange);
+  .bg-gold {
+    background-color: var(--gold);
   }
 
-  .bg-neon {
-    background-color: var(--neon);
+  .border-gold {
+    border-color: var(--gold);
   }
 
-  .bg-neon-orange {
-    background-color: var(--neon-orange);
+  .text-ink {
+    color: var(--ink);
   }
 
-  .border-neon {
-    border-color: var(--neon);
+  .bg-cream {
+    background-color: var(--cream);
   }
 
-  .glow-neon {
-    box-shadow: 0 0 30px rgba(232, 255, 0, 0.4);
-  }
-
-  .glow-orange {
-    box-shadow: 0 0 30px rgba(255, 85, 0, 0.4);
-  }
-
-  .clip-diagonal {
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
-
-  .clip-diagonal-rev {
-    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
-  }
-
-  .text-stroke {
-    -webkit-text-stroke: 1px var(--neon);
+  .text-stroke-gold {
+    -webkit-text-stroke: 1px var(--gold);
     color: transparent;
   }
 
@@ -119,7 +111,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 0;
   }
@@ -131,5 +123,20 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .paper-texture {
+    background-color: var(--cream);
+    background-image:
+      radial-gradient(
+        ellipse at 20% 50%,
+        rgba(184, 145, 58, 0.06) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse at 80% 20%,
+        rgba(184, 145, 58, 0.04) 0%,
+        transparent 50%
+      );
   }
 }

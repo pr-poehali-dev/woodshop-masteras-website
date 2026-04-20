@@ -4,6 +4,7 @@ import Icon from "@/components/ui/icon";
 const IMG_LIVING = "https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/files/6cd48931-6435-41cd-aec4-b1f939c3c18f.jpg";
 const IMG_KITCHEN = "https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/files/19d8120c-77a1-4446-bc5f-0f7fad51edc6.jpg";
 const IMG_BATH = "https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/files/28301c45-26af-4101-b6c4-32069ea0efa9.jpg";
+const LOGO = "https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/bucket/acef5a9c-f72a-4801-8678-dbf2fb2f1d39.jpg";
 
 const FILTERS = ["Все", "Интерьер", "Кухни", "Ванные", "Офисы", "Балконы"];
 
@@ -46,6 +47,18 @@ const STATS = [
   { value: "47 дней", label: "Средний срок ремонта" },
 ];
 
+// CSS vars shorthand
+const C = {
+  gold: "var(--gold)",
+  goldLight: "var(--gold-light)",
+  cream: "var(--cream)",
+  creamDark: "var(--cream-dark)",
+  ink: "var(--ink)",
+  inkSoft: "var(--ink-soft)",
+  inkMuted: "var(--ink-muted)",
+  border: "var(--dark-border)",
+};
+
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
@@ -67,7 +80,7 @@ function AnimSection({ children, className = "", delay = 0 }: { children: React.
       className={className}
       style={{
         opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(30px)",
+        transform: visible ? "translateY(0)" : "translateY(28px)",
         transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
       }}
     >
@@ -105,45 +118,51 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white font-golos overflow-x-hidden">
+    <div className="min-h-screen font-golos overflow-x-hidden" style={{ backgroundColor: C.cream, color: C.ink }}>
 
       {/* NAV */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A0A0A]/95 backdrop-blur border-b border-[#222]" : ""}`}>
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={scrolled ? { backgroundColor: "rgba(245,239,227,0.96)", backdropFilter: "blur(12px)", borderBottom: `1px solid ${C.border}` } : {}}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img
-              src="https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/bucket/acef5a9c-f72a-4801-8678-dbf2fb2f1d39.jpg"
-              alt="Мастерская"
-              className="w-10 h-10 rounded-full object-cover"
-            />
-            <span className="font-oswald text-2xl font-bold tracking-wider">
-              МАС<span style={{ color: "var(--neon)" }}>ТО</span>РАС
+            <img src={LOGO} alt="Масторас" className="w-10 h-10 rounded-full object-cover" style={{ boxShadow: `0 0 0 2px ${C.gold}` }} />
+            <span className="font-oswald text-2xl font-bold tracking-wider" style={{ color: C.ink }}>
+              МАС<span style={{ color: C.gold }}>ТО</span>РАС
             </span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-white/60">
+          <div className="hidden md:flex items-center gap-8">
             {Object.keys(NAV_ITEMS).map((s) => (
-              <button key={s} onClick={() => scrollTo(s)} className="hover:text-white transition-colors uppercase tracking-wider text-xs" style={{ "--hover-color": "var(--neon)" } as React.CSSProperties}>
+              <button
+                key={s}
+                onClick={() => scrollTo(s)}
+                className="text-xs uppercase tracking-wider transition-colors font-medium"
+                style={{ color: C.inkMuted }}
+                onMouseEnter={e => (e.currentTarget.style.color = C.gold)}
+                onMouseLeave={e => (e.currentTarget.style.color = C.inkMuted)}
+              >
                 {NAV_ITEMS[s]}
               </button>
             ))}
           </div>
           <button
             onClick={() => scrollTo("contacts")}
-            className="hidden md:block font-bold font-oswald px-6 py-2.5 text-sm tracking-widest uppercase transition-colors text-[#0A0A0A]"
-            style={{ backgroundColor: "var(--neon)" }}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "white")}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = "var(--neon)")}
+            className="hidden md:block font-oswald font-bold px-6 py-2.5 text-sm tracking-widest uppercase transition-all"
+            style={{ backgroundColor: C.gold, color: C.cream }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.ink)}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = C.gold)}
           >
             Связаться
           </button>
-          <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
+          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ color: C.ink }}>
             <Icon name={menuOpen ? "X" : "Menu"} size={24} />
           </button>
         </div>
         {menuOpen && (
-          <div className="md:hidden bg-[#111] border-t border-[#222] px-6 py-6 flex flex-col gap-4">
+          <div className="md:hidden px-6 py-6 flex flex-col gap-4" style={{ backgroundColor: C.creamDark, borderTop: `1px solid ${C.border}` }}>
             {Object.keys(NAV_ITEMS).map((s) => (
-              <button key={s} onClick={() => scrollTo(s)} className="text-left text-white/70 font-oswald uppercase tracking-widest text-sm" style={{ transition: "color 0.2s" }}>
+              <button key={s} onClick={() => scrollTo(s)} className="text-left font-oswald uppercase tracking-widest text-sm" style={{ color: C.inkSoft }}>
                 {NAV_ITEMS[s]}
               </button>
             ))}
@@ -152,50 +171,60 @@ const Index = () => {
       </nav>
 
       {/* HERO */}
-      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
+      <section id="hero" className="relative min-h-screen flex items-center overflow-hidden paper-texture">
+        {/* Background image — warm tinted overlay */}
         <div className="absolute inset-0">
-          <img src={IMG_LIVING} alt="hero" className="w-full h-full object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+          <img src={IMG_LIVING} alt="hero" className="w-full h-full object-cover" style={{ opacity: 0.12 }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${C.cream} 40%, transparent)` }} />
+          <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${C.cream} 10%, transparent)` }} />
         </div>
 
-        {/* Vertical accent line */}
-        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: "var(--neon)" }} />
+        {/* Left gold border */}
+        <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: C.gold }} />
 
-        {/* Decorative text */}
-        <div className="absolute right-10 top-1/2 -translate-y-1/2 font-oswald text-[200px] font-black leading-none select-none hidden lg:block" style={{ color: "rgba(232,255,0,0.05)" }}>
+        {/* Decorative ghost text */}
+        <div
+          className="absolute right-6 top-1/2 -translate-y-1/2 font-oswald text-[180px] font-black leading-none select-none hidden lg:block"
+          style={{ color: "rgba(184,145,58,0.07)", WebkitTextStroke: `2px rgba(184,145,58,0.12)` }}
+        >
           МАС
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 pt-32 pb-20">
-          <div style={{ animation: "fade-in 0.8s ease-out forwards", opacity: 0 }}>
+          <div style={{ animation: "fade-in 0.9s ease-out forwards", opacity: 0 }}>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-px" style={{ backgroundColor: "var(--neon)" }} />
-              <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: "var(--neon)" }}>Дизайн · Ремонт · Интерьер</span>
+              <div className="w-10 h-px" style={{ backgroundColor: C.gold }} />
+              <span className="font-oswald text-xs tracking-[0.35em] uppercase" style={{ color: C.gold }}>Дизайн · Ремонт · Интерьер</span>
             </div>
-            <h1 className="font-oswald font-black leading-none mb-6">
-              <span className="block text-5xl md:text-7xl lg:text-9xl text-white">СОЗДАЁМ</span>
-              <span className="block text-5xl md:text-7xl lg:text-9xl" style={{ color: "var(--neon)" }}>ПРОСТРАНСТВА</span>
-              <span className="block text-5xl md:text-7xl lg:text-9xl" style={{ WebkitTextStroke: "1px var(--neon)", color: "transparent" }}>МЕЧТЫ</span>
+            <h1 className="font-oswald font-black leading-none mb-8">
+              <span className="block text-5xl md:text-7xl lg:text-9xl" style={{ color: C.ink }}>СОЗДАЁМ</span>
+              <span className="block text-5xl md:text-7xl lg:text-9xl" style={{ color: C.gold }}>ПРОСТРАНСТВА</span>
+              <span
+                className="block text-5xl md:text-7xl lg:text-9xl"
+                style={{ WebkitTextStroke: `2px ${C.gold}`, color: "transparent" }}
+              >
+                МЕЧТЫ
+              </span>
             </h1>
-            <p className="text-white/60 text-lg max-w-xl mb-10 leading-relaxed">
+            <p className="text-lg max-w-xl mb-10 leading-relaxed" style={{ color: C.inkMuted }}>
               Профессиональная мастерская интерьеров. Дизайн-проект, ремонт под ключ и авторский надзор в Москве.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => scrollTo("contacts")}
-                className="font-oswald font-black px-10 py-4 text-sm tracking-widest uppercase transition-all hover:scale-105 text-[#0A0A0A]"
-                style={{ backgroundColor: "var(--neon)" }}
-                onMouseEnter={e => (e.currentTarget.style.backgroundColor = "white")}
-                onMouseLeave={e => (e.currentTarget.style.backgroundColor = "var(--neon)")}
+                className="font-oswald font-black px-10 py-4 text-sm tracking-widest uppercase transition-all hover:scale-105"
+                style={{ backgroundColor: C.gold, color: C.cream }}
+                onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.ink)}
+                onMouseLeave={e => (e.currentTarget.style.backgroundColor = C.gold)}
               >
                 Получить расчёт
               </button>
               <button
                 onClick={() => scrollTo("portfolio")}
-                className="border border-white/30 text-white font-oswald font-black px-10 py-4 text-sm tracking-widest uppercase transition-all"
-                onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--neon)"; e.currentTarget.style.color = "var(--neon)"; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)"; e.currentTarget.style.color = "white"; }}
+                className="font-oswald font-black px-10 py-4 text-sm tracking-widest uppercase transition-all"
+                style={{ border: `1px solid ${C.border}`, color: C.inkSoft }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.color = C.gold; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.inkSoft; }}
               >
                 Смотреть работы
               </button>
@@ -203,28 +232,28 @@ const Index = () => {
           </div>
 
           {/* Stats */}
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-[#222] pt-10">
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10" style={{ borderTop: `1px solid ${C.border}` }}>
             {STATS.map((s, i) => (
               <div key={i} style={{ animation: `fade-in 0.6s ease-out ${300 + i * 100}ms forwards`, opacity: 0 }}>
-                <div className="font-oswald text-3xl md:text-4xl font-black" style={{ color: "var(--neon)" }}>{s.value}</div>
-                <div className="text-white/40 text-xs uppercase tracking-wider mt-1">{s.label}</div>
+                <div className="font-oswald text-3xl md:text-4xl font-black" style={{ color: C.gold }}>{s.value}</div>
+                <div className="text-xs uppercase tracking-wider mt-1" style={{ color: C.inkMuted }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style={{ color: C.inkMuted }}>
           <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <div className="w-px h-10 bg-gradient-to-b from-white/30 to-transparent" />
+          <div className="w-px h-10" style={{ background: `linear-gradient(to bottom, ${C.inkMuted}, transparent)` }} />
         </div>
       </section>
 
       {/* MARQUEE */}
-      <div className="py-3 overflow-hidden" style={{ backgroundColor: "var(--neon)" }}>
+      <div className="py-3 overflow-hidden" style={{ backgroundColor: C.gold }}>
         <div className="flex whitespace-nowrap" style={{ animation: "marquee 25s linear infinite" }}>
           {Array(10).fill("ДИЗАЙН · РЕМОНТ · ИНТЕРЬЕР · ПРОЕКТИРОВАНИЕ · АВТОРСКИЙ НАДЗОР · КУХНИ · ВАННЫЕ · ОФИСЫ · ").map((t, i) => (
-            <span key={i} className="font-oswald font-black text-[#0A0A0A] text-sm tracking-widest">{t}</span>
+            <span key={i} className="font-oswald font-black text-sm tracking-widest" style={{ color: C.cream }}>{t}</span>
           ))}
         </div>
       </div>
@@ -233,10 +262,10 @@ const Index = () => {
       <section id="portfolio" className="py-24 px-6 max-w-7xl mx-auto">
         <AnimSection>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--neon)" }} />
-            <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: "var(--neon)" }}>Наши работы</span>
+            <div className="w-8 h-px" style={{ backgroundColor: C.gold }} />
+            <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: C.gold }}>Наши работы</span>
           </div>
-          <h2 className="font-oswald font-black text-4xl md:text-6xl mb-12">ПОРТФОЛИО</h2>
+          <h2 className="font-oswald font-black text-4xl md:text-6xl mb-12" style={{ color: C.ink }}>ПОРТФОЛИО</h2>
         </AnimSection>
 
         {/* Filters */}
@@ -248,11 +277,11 @@ const Index = () => {
                 onClick={() => setActiveFilter(f)}
                 className="font-oswald px-5 py-2 text-xs tracking-widest uppercase transition-all"
                 style={activeFilter === f
-                  ? { backgroundColor: "var(--neon)", color: "#0A0A0A", fontWeight: 900 }
-                  : { border: "1px solid #333", color: "rgba(255,255,255,0.5)" }
+                  ? { backgroundColor: C.gold, color: C.cream, fontWeight: 900 }
+                  : { border: `1px solid ${C.border}`, color: C.inkMuted }
                 }
-                onMouseEnter={e => { if (activeFilter !== f) { e.currentTarget.style.borderColor = "var(--neon)"; e.currentTarget.style.color = "var(--neon)"; } }}
-                onMouseLeave={e => { if (activeFilter !== f) { e.currentTarget.style.borderColor = "#333"; e.currentTarget.style.color = "rgba(255,255,255,0.5)"; } }}
+                onMouseEnter={e => { if (activeFilter !== f) { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.color = C.gold; } }}
+                onMouseLeave={e => { if (activeFilter !== f) { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.color = C.inkMuted; } }}
               >
                 {f}
               </button>
@@ -264,25 +293,24 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((p, i) => (
             <AnimSection key={p.id} delay={i * 80} className="group cursor-pointer">
-              <div className="relative overflow-hidden bg-[#111] aspect-[4/3]">
+              <div className="relative overflow-hidden aspect-[4/3]" style={{ backgroundColor: C.creamDark }}>
                 <img
                   src={p.img}
                   alt={p.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+                  style={{ transform: "scale(1)", transition: "transform 0.7s ease" }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.08)")}
+                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent opacity-70" />
-                <div className="absolute inset-0 transition-all duration-300" style={{ backgroundColor: "rgba(10,10,10,0)" }}
-                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = "rgba(10,10,10,0.4)")}
-                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = "rgba(10,10,10,0)")}
-                />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(30,21,10,0.7) 0%, transparent 50%)" }} />
                 {/* Tag */}
-                <div className="absolute top-4 left-4 font-oswald font-bold text-xs px-3 py-1 uppercase tracking-wider text-[#0A0A0A]" style={{ backgroundColor: "var(--neon)" }}>
+                <div className="absolute top-4 left-4 font-oswald font-bold text-xs px-3 py-1 uppercase tracking-wider" style={{ backgroundColor: C.gold, color: C.cream }}>
                   {p.tag}
                 </div>
                 {/* Info */}
                 <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <div className="font-oswald font-bold text-xl mb-1">{p.title}</div>
-                  <div className="flex items-center justify-between text-white/50 text-xs">
+                  <div className="font-oswald font-bold text-xl mb-1 text-white">{p.title}</div>
+                  <div className="flex items-center justify-between text-xs text-white/60">
                     <span>{p.type}</span>
                     <span>{p.area} · {p.year}</span>
                   </div>
@@ -294,29 +322,35 @@ const Index = () => {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="py-24 bg-[#0D0D0D]">
+      <section id="services" className="py-24" style={{ backgroundColor: C.creamDark }}>
         <div className="max-w-7xl mx-auto px-6">
           <AnimSection>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px" style={{ backgroundColor: "var(--neon-orange)" }} />
-              <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: "var(--neon-orange)" }}>Что мы делаем</span>
+              <div className="w-8 h-px" style={{ backgroundColor: C.gold }} />
+              <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: C.gold }}>Что мы делаем</span>
             </div>
-            <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16">УСЛУГИ</h2>
+            <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16" style={{ color: C.ink }}>УСЛУГИ</h2>
           </AnimSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#222]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: C.border }}>
             {SERVICES.map((s, i) => (
               <AnimSection key={i} delay={i * 80}>
-                <div className="bg-[#0D0D0D] p-8 hover:bg-[#111] transition-colors group h-full">
-                  <div className="w-12 h-12 border border-[#333] flex items-center justify-center mb-6 transition-all group-hover:border-yellow-300"
-                    style={{ transition: "border-color 0.3s" }}
-                    onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--neon)")}
+                <div
+                  className="p-8 h-full group transition-colors"
+                  style={{ backgroundColor: C.creamDark }}
+                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.cream)}
+                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = C.creamDark)}
+                >
+                  <div
+                    className="w-12 h-12 flex items-center justify-center mb-6 transition-all"
+                    style={{ border: `1px solid ${C.border}` }}
+                    onMouseEnter={e => (e.currentTarget.style.borderColor = C.gold)}
                   >
-                    <Icon name={s.icon as "Pencil"} size={22} className="text-white/40 group-hover:text-white transition-colors" />
+                    <Icon name={s.icon as "Pencil"} size={20} style={{ color: C.inkMuted }} />
                   </div>
-                  <h3 className="font-oswald font-bold text-xl mb-3">{s.title}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed mb-6">{s.desc}</p>
-                  <div className="font-oswald font-black text-lg" style={{ color: "var(--neon)" }}>{s.price}</div>
+                  <h3 className="font-oswald font-bold text-xl mb-3" style={{ color: C.ink }}>{s.title}</h3>
+                  <p className="text-sm leading-relaxed mb-6" style={{ color: C.inkMuted }}>{s.desc}</p>
+                  <div className="font-oswald font-black text-lg" style={{ color: C.gold }}>{s.price}</div>
                 </div>
               </AnimSection>
             ))}
@@ -328,32 +362,37 @@ const Index = () => {
       <section id="process" className="py-24 px-6 max-w-7xl mx-auto">
         <AnimSection>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--neon)" }} />
-            <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: "var(--neon)" }}>Как мы работаем</span>
+            <div className="w-8 h-px" style={{ backgroundColor: C.gold }} />
+            <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: C.gold }}>Как мы работаем</span>
           </div>
-          <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16">ПРОЦЕСС</h2>
+          <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16" style={{ color: C.ink }}>ПРОЦЕСС</h2>
         </AnimSection>
 
-        <div className="space-y-0">
+        <div>
           {PROCESS.map((step, i) => (
             <AnimSection key={i} delay={i * 100}>
               <div
-                className="flex gap-8 py-8 border-b border-[#1A1A1A] group cursor-default"
-                style={{ transition: "border-color 0.3s" }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,255,0,0.3)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "#1A1A1A")}
+                className="flex gap-8 py-8 group cursor-default"
+                style={{ borderBottom: `1px solid ${C.border}`, transition: "border-color 0.3s" }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = C.gold)}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}
               >
-                <div className="font-oswald font-black text-5xl md:text-7xl w-28 flex-shrink-0 leading-none transition-colors" style={{ color: "rgba(255,255,255,0.05)" }}>
+                <div className="font-oswald font-black text-5xl md:text-7xl w-28 flex-shrink-0 leading-none" style={{ color: "rgba(184,145,58,0.15)" }}>
                   {step.num}
                 </div>
                 <div className="flex-1 flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div>
-                    <h3 className="font-oswald font-bold text-2xl mb-2 group-hover:text-white transition-colors">{step.title}</h3>
-                    <p className="text-white/40 text-sm leading-relaxed max-w-xl">{step.desc}</p>
+                    <h3 className="font-oswald font-bold text-2xl mb-2 transition-colors group-hover:text-amber-700" style={{ color: C.ink }}>{step.title}</h3>
+                    <p className="text-sm leading-relaxed max-w-xl" style={{ color: C.inkMuted }}>{step.desc}</p>
                   </div>
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 border border-[#333] flex items-center justify-center transition-all group-hover:border-yellow-300 group-hover:bg-yellow-300">
-                      <Icon name="ArrowRight" size={16} className="text-white/30 group-hover:text-[#0A0A0A] transition-colors" />
+                    <div
+                      className="w-10 h-10 flex items-center justify-center transition-all"
+                      style={{ border: `1px solid ${C.border}` }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.backgroundColor = C.gold; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.backgroundColor = "transparent"; }}
+                    >
+                      <Icon name="ArrowRight" size={16} style={{ color: C.inkMuted }} />
                     </div>
                   </div>
                 </div>
@@ -364,23 +403,23 @@ const Index = () => {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="py-24 bg-[#0D0D0D] overflow-hidden">
+      <section id="about" className="py-24 overflow-hidden" style={{ backgroundColor: C.creamDark }}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <AnimSection>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-px" style={{ backgroundColor: "var(--neon-orange)" }} />
-                <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: "var(--neon-orange)" }}>О мастерской</span>
+                <div className="w-8 h-px" style={{ backgroundColor: C.gold }} />
+                <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: C.gold }}>О мастерской</span>
               </div>
-              <h2 className="font-oswald font-black text-4xl md:text-5xl mb-8 leading-none">
+              <h2 className="font-oswald font-black text-4xl md:text-5xl mb-8 leading-none" style={{ color: C.ink }}>
                 МЫ ДЕЛАЕМ<br />
-                <span style={{ color: "var(--neon)" }}>КРАСИВО.</span><br />
+                <span style={{ color: C.gold }}>КРАСИВО.</span><br />
                 ВСЕГДА.
               </h2>
-              <p className="text-white/50 leading-relaxed mb-6">
-                Мастерская основана в 2016 году командой архитекторов и дизайнеров с опытом в топовых московских бюро. Мы специализируемся на жилых и коммерческих интерьерах, сочетая дерзкие решения с практичным подходом.
+              <p className="leading-relaxed mb-6" style={{ color: C.inkMuted }}>
+                Масторас основана в 2016 году командой архитекторов и дизайнеров с опытом в топовых московских бюро. Специализируемся на жилых и коммерческих интерьерах, сочетая дерзкие решения с практичным подходом.
               </p>
-              <p className="text-white/50 leading-relaxed mb-10">
+              <p className="leading-relaxed mb-10" style={{ color: C.inkMuted }}>
                 Каждый проект — это диалог. Мы слушаем, предлагаем, убеждаем. И сдаём в срок без лишних нервов.
               </p>
               <div className="grid grid-cols-2 gap-6">
@@ -391,10 +430,10 @@ const Index = () => {
                   { icon: "Shield", text: "Гарантия 3 года на работы" },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
-                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5" style={{ border: "1px solid rgba(232,255,0,0.3)" }}>
-                      <Icon name={item.icon as "Award"} size={14} style={{ color: "var(--neon)" }} />
+                    <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5" style={{ border: `1px solid rgba(184,145,58,0.4)` }}>
+                      <Icon name={item.icon as "Award"} size={14} style={{ color: C.gold }} />
                     </div>
-                    <span className="text-white/60 text-sm leading-snug">{item.text}</span>
+                    <span className="text-sm leading-snug" style={{ color: C.inkMuted }}>{item.text}</span>
                   </div>
                 ))}
               </div>
@@ -403,13 +442,13 @@ const Index = () => {
             <AnimSection delay={200} className="relative">
               <div className="relative">
                 <img src={IMG_BATH} alt="о нас" className="w-full h-80 md:h-[500px] object-cover" />
-                <div className="absolute -bottom-6 -left-6 p-6 hidden md:block text-[#0A0A0A]" style={{ backgroundColor: "var(--neon)" }}>
-                  <div className="font-oswald font-black text-4xl">320+</div>
-                  <div className="font-oswald text-[#0A0A0A]/70 text-xs uppercase tracking-wider">проектов сдано</div>
+                <div className="absolute -bottom-6 -left-6 p-6 hidden md:block" style={{ backgroundColor: C.gold }}>
+                  <div className="font-oswald font-black text-4xl" style={{ color: C.cream }}>320+</div>
+                  <div className="font-oswald text-xs uppercase tracking-wider" style={{ color: "rgba(245,239,227,0.7)" }}>проектов сдано</div>
                 </div>
-                <div className="absolute top-6 -right-6 bg-[#111] border border-[#333] p-5 hidden md:block">
-                  <div className="font-oswald font-black text-white text-3xl">8 лет</div>
-                  <div className="text-white/40 text-xs uppercase tracking-wider">на рынке</div>
+                <div className="absolute top-6 -right-6 p-5 hidden md:block" style={{ backgroundColor: C.cream, border: `1px solid ${C.border}` }}>
+                  <div className="font-oswald font-black text-3xl" style={{ color: C.ink }}>8 лет</div>
+                  <div className="text-xs uppercase tracking-wider" style={{ color: C.inkMuted }}>на рынке</div>
                 </div>
               </div>
             </AnimSection>
@@ -421,28 +460,30 @@ const Index = () => {
       <section id="reviews" className="py-24 px-6 max-w-7xl mx-auto">
         <AnimSection>
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-px" style={{ backgroundColor: "var(--neon)" }} />
-            <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: "var(--neon)" }}>Что говорят клиенты</span>
+            <div className="w-8 h-px" style={{ backgroundColor: C.gold }} />
+            <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: C.gold }}>Что говорят клиенты</span>
           </div>
-          <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16">ОТЗЫВЫ</h2>
+          <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16" style={{ color: C.ink }}>ОТЗЫВЫ</h2>
         </AnimSection>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {REVIEWS.map((r, i) => (
             <AnimSection key={i} delay={i * 120}>
-              <div className="bg-[#111] border border-[#1E1E1E] p-8 h-full" style={{ transition: "border-color 0.3s" }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(232,255,0,0.3)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "#1E1E1E")}
+              <div
+                className="p-8 h-full transition-all"
+                style={{ backgroundColor: C.creamDark, border: `1px solid ${C.border}` }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = C.gold)}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}
               >
                 <div className="flex gap-1 mb-6">
                   {Array(r.rating).fill(0).map((_, j) => (
-                    <Icon key={j} name="Star" size={14} style={{ color: "var(--neon)", fill: "var(--neon)" }} />
+                    <Icon key={j} name="Star" size={14} style={{ color: C.gold, fill: C.gold }} />
                   ))}
                 </div>
-                <p className="text-white/60 text-sm leading-relaxed mb-8 italic">"{r.text}"</p>
-                <div className="border-t border-[#222] pt-6">
-                  <div className="font-oswald font-bold text-white">{r.name}</div>
-                  <div className="text-white/30 text-xs mt-1">{r.role}</div>
+                <p className="text-sm leading-relaxed mb-8 italic" style={{ color: C.inkMuted }}>"{r.text}"</p>
+                <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "1.5rem" }}>
+                  <div className="font-oswald font-bold" style={{ color: C.ink }}>{r.name}</div>
+                  <div className="text-xs mt-1" style={{ color: C.inkMuted }}>{r.role}</div>
                 </div>
               </div>
             </AnimSection>
@@ -451,18 +492,18 @@ const Index = () => {
       </section>
 
       {/* CTA BANNER */}
-      <div className="py-16 px-6" style={{ backgroundColor: "var(--neon)" }}>
+      <div className="py-16 px-6" style={{ backgroundColor: C.ink }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h3 className="font-oswald font-black text-[#0A0A0A] text-4xl md:text-5xl mb-2">ГОТОВЫ НАЧАТЬ?</h3>
-            <p className="text-[#0A0A0A]/60 font-golos">Бесплатный замер и консультация — уже сегодня</p>
+            <h3 className="font-oswald font-black text-4xl md:text-5xl mb-2" style={{ color: C.gold }}>ГОТОВЫ НАЧАТЬ?</h3>
+            <p style={{ color: "rgba(245,239,227,0.5)" }}>Бесплатный замер и консультация — уже сегодня</p>
           </div>
           <button
             onClick={() => scrollTo("contacts")}
-            className="bg-[#0A0A0A] font-oswald font-black px-12 py-5 text-sm tracking-widest uppercase flex-shrink-0 transition-all hover:scale-105"
-            style={{ color: "var(--neon)" }}
-            onMouseEnter={e => (e.currentTarget.style.backgroundColor = "#111")}
-            onMouseLeave={e => (e.currentTarget.style.backgroundColor = "#0A0A0A")}
+            className="font-oswald font-black px-12 py-5 text-sm tracking-widest uppercase flex-shrink-0 transition-all hover:scale-105"
+            style={{ backgroundColor: C.gold, color: C.cream }}
+            onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.goldLight)}
+            onMouseLeave={e => (e.currentTarget.style.backgroundColor = C.gold)}
           >
             Оставить заявку
           </button>
@@ -470,35 +511,42 @@ const Index = () => {
       </div>
 
       {/* CONTACTS */}
-      <section id="contacts" className="py-24 bg-[#0D0D0D]">
+      <section id="contacts" className="py-24" style={{ backgroundColor: C.creamDark }}>
         <div className="max-w-7xl mx-auto px-6">
           <AnimSection>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-px" style={{ backgroundColor: "var(--neon)" }} />
-              <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: "var(--neon)" }}>Свяжитесь с нами</span>
+              <div className="w-8 h-px" style={{ backgroundColor: C.gold }} />
+              <span className="font-oswald text-xs tracking-[0.3em] uppercase" style={{ color: C.gold }}>Свяжитесь с нами</span>
             </div>
-            <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16">КОНТАКТЫ</h2>
+            <h2 className="font-oswald font-black text-4xl md:text-6xl mb-16" style={{ color: C.ink }}>КОНТАКТЫ</h2>
           </AnimSection>
 
           <div className="grid md:grid-cols-2 gap-16">
             {/* Form */}
             <AnimSection>
               <div className="space-y-4">
+                {[
+                  { label: "Ваше имя", type: "text", placeholder: "Иван Петров" },
+                  { label: "Телефон", type: "tel", placeholder: "+7 (999) 000-00-00" },
+                ].map((field, i) => (
+                  <div key={i}>
+                    <label className="font-oswald text-xs uppercase tracking-wider mb-2 block" style={{ color: C.inkMuted }}>{field.label}</label>
+                    <input
+                      type={field.type}
+                      placeholder={field.placeholder}
+                      className="w-full px-5 py-4 text-sm outline-none transition-colors"
+                      style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.ink }}
+                      onFocus={e => (e.currentTarget.style.borderColor = C.gold)}
+                      onBlur={e => (e.currentTarget.style.borderColor = C.border)}
+                    />
+                  </div>
+                ))}
                 <div>
-                  <label className="text-white/40 text-xs uppercase tracking-wider mb-2 block font-oswald">Ваше имя</label>
-                  <input type="text" placeholder="Иван Петров"
-                    className="w-full bg-[#111] border border-[#222] text-white px-5 py-4 outline-none placeholder:text-white/20 text-sm focus:border-yellow-300 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="text-white/40 text-xs uppercase tracking-wider mb-2 block font-oswald">Телефон</label>
-                  <input type="tel" placeholder="+7 (999) 000-00-00"
-                    className="w-full bg-[#111] border border-[#222] text-white px-5 py-4 outline-none placeholder:text-white/20 text-sm focus:border-yellow-300 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="text-white/40 text-xs uppercase tracking-wider mb-2 block font-oswald">Услуга</label>
-                  <select className="w-full bg-[#111] border border-[#222] text-white px-5 py-4 outline-none text-sm appearance-none focus:border-yellow-300 transition-colors">
+                  <label className="font-oswald text-xs uppercase tracking-wider mb-2 block" style={{ color: C.inkMuted }}>Услуга</label>
+                  <select
+                    className="w-full px-5 py-4 text-sm outline-none transition-colors appearance-none"
+                    style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.ink }}
+                  >
                     <option value="">Выберите услугу</option>
                     <option>Дизайн-проект</option>
                     <option>Ремонт под ключ</option>
@@ -507,16 +555,21 @@ const Index = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="text-white/40 text-xs uppercase tracking-wider mb-2 block font-oswald">Сообщение</label>
-                  <textarea rows={4} placeholder="Опишите ваш проект..."
-                    className="w-full bg-[#111] border border-[#222] text-white px-5 py-4 outline-none placeholder:text-white/20 text-sm resize-none focus:border-yellow-300 transition-colors"
+                  <label className="font-oswald text-xs uppercase tracking-wider mb-2 block" style={{ color: C.inkMuted }}>Сообщение</label>
+                  <textarea
+                    rows={4}
+                    placeholder="Опишите ваш проект..."
+                    className="w-full px-5 py-4 text-sm outline-none transition-colors resize-none"
+                    style={{ backgroundColor: C.cream, border: `1px solid ${C.border}`, color: C.ink }}
+                    onFocus={e => (e.currentTarget.style.borderColor = C.gold)}
+                    onBlur={e => (e.currentTarget.style.borderColor = C.border)}
                   />
                 </div>
                 <button
-                  className="w-full font-oswald font-black py-5 text-sm tracking-widest uppercase text-[#0A0A0A] transition-colors"
-                  style={{ backgroundColor: "var(--neon)" }}
-                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = "white")}
-                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = "var(--neon)")}
+                  className="w-full font-oswald font-black py-5 text-sm tracking-widest uppercase transition-all"
+                  style={{ backgroundColor: C.gold, color: C.cream }}
+                  onMouseEnter={e => (e.currentTarget.style.backgroundColor = C.ink)}
+                  onMouseLeave={e => (e.currentTarget.style.backgroundColor = C.gold)}
                 >
                   Отправить заявку
                 </button>
@@ -528,21 +581,23 @@ const Index = () => {
               <div className="space-y-8">
                 {[
                   { icon: "Phone", title: "Телефон", lines: ["+7 (495) 000-00-00", "Пн–Пт: 9:00 – 20:00"] },
-                  { icon: "Mail", title: "Email", lines: ["hello@masterskaya.ru", "Ответим в течение часа"] },
+                  { icon: "Mail", title: "Email", lines: ["hello@mastoras.ru", "Ответим в течение часа"] },
                   { icon: "MapPin", title: "Офис", lines: ["Москва, ул. Тверская, 15", "Рядом с м. Тверская"] },
-                  { icon: "Instagram", title: "Соцсети", lines: ["@masterskaya_design", "Проекты и процесс"] },
+                  { icon: "Instagram", title: "Соцсети", lines: ["@mastoras_design", "Проекты и процесс"] },
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-5 group cursor-default">
-                    <div className="w-12 h-12 border border-[#333] flex items-center justify-center flex-shrink-0 transition-all"
-                      onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--neon)")}
-                      onMouseLeave={e => (e.currentTarget.style.borderColor = "#333")}
+                  <div key={i} className="flex gap-5">
+                    <div
+                      className="w-12 h-12 flex items-center justify-center flex-shrink-0 transition-all"
+                      style={{ border: `1px solid ${C.border}` }}
+                      onMouseEnter={e => (e.currentTarget.style.borderColor = C.gold)}
+                      onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}
                     >
-                      <Icon name={item.icon as "Phone"} size={18} className="text-white/30 transition-colors" />
+                      <Icon name={item.icon as "Phone"} size={18} style={{ color: C.inkMuted }} />
                     </div>
                     <div>
-                      <div className="font-oswald font-bold text-white/30 text-xs uppercase tracking-widest mb-1">{item.title}</div>
+                      <div className="font-oswald font-bold text-xs uppercase tracking-widest mb-1" style={{ color: C.inkMuted }}>{item.title}</div>
                       {item.lines.map((l, j) => (
-                        <div key={j} className={j === 0 ? "text-white font-medium" : "text-white/40 text-sm"}>{l}</div>
+                        <div key={j} className={j === 0 ? "font-medium" : "text-sm"} style={{ color: j === 0 ? C.ink : C.inkMuted }}>{l}</div>
                       ))}
                     </div>
                   </div>
@@ -554,35 +609,33 @@ const Index = () => {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-[#1A1A1A] py-10 px-6">
+      <footer className="py-10 px-6" style={{ borderTop: `1px solid ${C.border}`, backgroundColor: C.cream }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img
-              src="https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/bucket/acef5a9c-f72a-4801-8678-dbf2fb2f1d39.jpg"
-              alt="Мастерская"
-              className="w-8 h-8 rounded-full object-cover"
-            />
-            <span className="font-oswald text-xl font-bold">
-              МАС<span style={{ color: "var(--neon)" }}>ТО</span>РАС
+            <img src={LOGO} alt="Масторас" className="w-8 h-8 rounded-full object-cover" style={{ boxShadow: `0 0 0 1.5px ${C.gold}` }} />
+            <span className="font-oswald text-xl font-bold" style={{ color: C.ink }}>
+              МАС<span style={{ color: C.gold }}>ТО</span>РАС
             </span>
           </div>
-          <div className="text-white/20 text-xs text-center">
-            © 2024 Мастерская интерьеров. Все права защищены.
+          <div className="text-xs text-center" style={{ color: C.inkMuted }}>
+            © 2024 Масторас. Все права защищены.
           </div>
           <div className="flex gap-4">
             {["Instagram", "MessageCircle", "Send"].map((icon, i) => (
-              <button key={i} className="w-9 h-9 border border-[#222] flex items-center justify-center transition-colors"
-                onMouseEnter={e => (e.currentTarget.style.borderColor = "var(--neon)")}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = "#222")}
+              <button
+                key={i}
+                className="w-9 h-9 flex items-center justify-center transition-all"
+                style={{ border: `1px solid ${C.border}` }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = C.gold)}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}
               >
-                <Icon name={icon as "Instagram"} size={14} className="text-white/30" />
+                <Icon name={icon as "Instagram"} size={14} style={{ color: C.inkMuted }} />
               </button>
             ))}
           </div>
         </div>
       </footer>
 
-      {/* Keyframe styles */}
       <style>{`
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(20px); }
@@ -591,6 +644,12 @@ const Index = () => {
         @keyframes marquee {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
+        }
+        .paper-texture {
+          background-color: var(--cream);
+          background-image:
+            radial-gradient(ellipse at 20% 50%, rgba(184,145,58,0.07) 0%, transparent 60%),
+            radial-gradient(ellipse at 80% 20%, rgba(184,145,58,0.05) 0%, transparent 50%);
         }
       `}</style>
     </div>
