@@ -1,6 +1,91 @@
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
 
+function WoodRingIcon({ size = 56 }: { size?: number }) {
+  const cx = size / 2;
+  const rings = [
+    { r: size * 0.46, stroke: "rgba(60,30,8,0.55)", w: 1.1 },
+    { r: size * 0.38, stroke: "rgba(80,42,12,0.45)", w: 1.0 },
+    { r: size * 0.30, stroke: "rgba(100,58,18,0.50)", w: 1.1 },
+    { r: size * 0.22, stroke: "rgba(120,72,22,0.45)", w: 1.0 },
+    { r: size * 0.14, stroke: "rgba(140,88,28,0.55)", w: 1.1 },
+    { r: size * 0.07, stroke: "rgba(160,100,30,0.6)", w: 1.0 },
+  ];
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="woodBase" cx="42%" cy="40%" r="58%">
+          <stop offset="0%" stopColor="#ddb870" />
+          <stop offset="35%" stopColor="#c8a055" />
+          <stop offset="65%" stopColor="#b08030" />
+          <stop offset="100%" stopColor="#8a6020" />
+        </radialGradient>
+        <radialGradient id="woodShine" cx="35%" cy="30%" r="50%">
+          <stop offset="0%" stopColor="rgba(255,240,180,0.35)" />
+          <stop offset="100%" stopColor="rgba(255,240,180,0)" />
+        </radialGradient>
+        <radialGradient id="woodShadow" cx="60%" cy="65%" r="55%">
+          <stop offset="0%" stopColor="rgba(50,20,5,0.3)" />
+          <stop offset="100%" stopColor="rgba(50,20,5,0)" />
+        </radialGradient>
+        <clipPath id={`circle-clip-${size}`}>
+          <circle cx={cx} cy={cx} r={size * 0.47} />
+        </clipPath>
+        {/* Subtle grain lines */}
+        <filter id="woodGrain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9 0.15" numOctaves="3" seed="4" result="noise" />
+          <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise" />
+          <feBlend in="SourceGraphic" in2="grayNoise" mode="multiply" result="blend" />
+          <feComposite in="blend" in2="SourceGraphic" operator="in" />
+        </filter>
+      </defs>
+
+      {/* Base circle — wood fill */}
+      <circle cx={cx} cy={cx} r={size * 0.47} fill="url(#woodBase)" />
+
+      {/* Annual rings */}
+      {rings.map((ring, i) => (
+        <ellipse
+          key={i}
+          cx={cx + (i % 2 === 0 ? 0.6 : -0.4)}
+          cy={cx + (i % 2 === 0 ? 0.5 : -0.3)}
+          rx={ring.r}
+          ry={ring.r * (0.97 + i * 0.005)}
+          stroke={ring.stroke}
+          strokeWidth={ring.w}
+          fill="none"
+          clipPath={`url(#circle-clip-${size})`}
+        />
+      ))}
+
+      {/* Medullary rays — радиальные лучи от центра */}
+      {[0, 35, 72, 108, 148, 185, 222, 260, 300, 340].map((angle, i) => {
+        const rad = (angle * Math.PI) / 180;
+        const x2 = cx + Math.cos(rad) * size * 0.44;
+        const y2 = cx + Math.sin(rad) * size * 0.44;
+        return (
+          <line
+            key={i}
+            x1={cx} y1={cx} x2={x2} y2={y2}
+            stroke="rgba(80,40,10,0.12)"
+            strokeWidth={0.7}
+            clipPath={`url(#circle-clip-${size})`}
+          />
+        );
+      })}
+
+      {/* Shine overlay */}
+      <circle cx={cx} cy={cx} r={size * 0.47} fill="url(#woodShine)" />
+      {/* Shadow overlay */}
+      <circle cx={cx} cy={cx} r={size * 0.47} fill="url(#woodShadow)" />
+
+      {/* Outer brass ring — под логотип */}
+      <circle cx={cx} cy={cx} r={size * 0.47} stroke="#b8913a" strokeWidth={1.8} fill="none" />
+      <circle cx={cx} cy={cx} r={size * 0.44} stroke="rgba(212,168,83,0.4)" strokeWidth={0.6} fill="none" />
+    </svg>
+  );
+}
+
 const IMG_LIVING = "https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/files/6cd48931-6435-41cd-aec4-b1f939c3c18f.jpg";
 const IMG_KITCHEN = "https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/files/19d8120c-77a1-4446-bc5f-0f7fad51edc6.jpg";
 const IMG_BATH = "https://cdn.poehali.dev/projects/3fc68a78-3d8c-43b1-90a7-27015701c170/files/28301c45-26af-4101-b6c4-32069ea0efa9.jpg";
@@ -349,12 +434,12 @@ const Index = () => {
                 >
                   {/* Top wood accent bar */}
                   <div className="w-full h-1 mb-5 wood-strip opacity-50 rounded-sm" />
-                  <div
-                    className="w-12 h-12 flex items-center justify-center mb-6 transition-all metal-steel metal-riveted"
-                    onMouseEnter={e => (e.currentTarget.style.outline = `2px solid ${C.gold}`)}
-                    onMouseLeave={e => (e.currentTarget.style.outline = "none")}
-                  >
-                    <Icon name={s.icon as "Pencil"} size={20} style={{ color: C.inkMuted }} />
+                  {/* Wood ring icon with lucide overlay */}
+                  <div className="relative w-14 h-14 mb-6 flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                    <WoodRingIcon size={56} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Icon name={s.icon as "Pencil"} size={17} style={{ color: "#3d2510", opacity: 0.85 }} />
+                    </div>
                   </div>
                   <h3 className="font-oswald font-bold text-xl mb-3" style={{ color: C.ink }}>{s.title}</h3>
                   <p className="text-sm leading-relaxed mb-6" style={{ color: C.inkMuted }}>{s.desc}</p>
